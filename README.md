@@ -1,4 +1,5 @@
 # face_landmarking_pipeline
+The link to ONNX models used can be found at: https://drive.google.com/drive/folders/1N2WusFEbFUaaj82NxfjADcRT_VWAG_Uo?usp=sharing
 
 ## RetinaFace Functions
 1. pre_processing.py:
