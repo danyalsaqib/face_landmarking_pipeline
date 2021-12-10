@@ -1,6 +1,6 @@
 # face_landmarking_pipeline
 
-# RetinaFace Functions
+## RetinaFace Functions
 1. pre_processing.py:
 
 Preprocesses image, and outputs an image tensor. Only call 'preprocess_image' function
@@ -13,7 +13,7 @@ Performs inference on image tensor, and outputs RetinaFace output. Only call 'in
 
 Postprocesses RetinaFace output, and outputs cropped image and 'relative landmarks'. Only call 'postprocess_image' function
 
-# Embedding Functions
+## Embedding Functions
 Should be given output of postprocessing of RetinaFace
 1. pre_processing.py:
 
