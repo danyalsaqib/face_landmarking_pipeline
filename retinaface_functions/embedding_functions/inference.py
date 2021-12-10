@@ -15,7 +15,7 @@ model_dir ="./arcface.onnx"
 
 # Only function to be called is infer_image
 
-def infer_image_embed(data):
+def infer_image_retina(data):
     session = onnxruntime.InferenceSession(model_dir, None)
     input_name = session.get_inputs()[0].name
     output_name = session.get_outputs()[0].name

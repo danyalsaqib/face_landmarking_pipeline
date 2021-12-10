@@ -9,12 +9,12 @@ import tensorflow as tf
 from retinaface.commons import preprocess, postprocess
 import json
 from os import path
-from helper_functions import warp_and_crop_face, get_reference_facial_points
-#from embedding_functions.helper_functions import warp_and_crop_face, get_reference_facial_points
+#from helper_functions import warp_and_crop_face, get_reference_facial_points
+from embedding_functions.helper_functions import warp_and_crop_face, get_reference_facial_points
 
 # Only function to be called is preprocess_image
 
-def preprocess_image_embed(out2):
+def preprocess_image_retina(out2):
     crop_img, points = out2
     output_size=(224 , 224)
     default_square = True

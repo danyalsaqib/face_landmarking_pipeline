@@ -1,6 +1,12 @@
 import cv2 as cv
 import numpy as np
 from os import path
+import os
+from inference import infer_image
+from post_processing import postprocess_image
+from embedding_functions.pre_processing import preprocess_image_embed
+from embedding_functions.inference import infer_image_embed
+from embedding_functions.post_processing import postprocess_image_embed
 
 # Only function to be called is preprocess_image
 
@@ -59,12 +65,20 @@ def preprocess_image(image_path):
     threshold = 0.5
     #diction = {'names':[], 'embeddings':[]}
     ## Detection with mtcnn
-    try:
-        if path.exists(image_path) ==False:
-            raise PathNotFound
-        else:
-            image = cv.imread(image_path)
-            print("image shape: ", image.shape)
-            #pixels = plt.imread(image_path)
-            im_tensor, _, _ = ppc_retina(image, allow_upscaling=True)
-            return im_tensor
+    if path.exists(image_path) ==False:
+        return -1
+    else:
+        image = cv.imread(image_path)
+        print("image shape: ", image.shape)
+        #pixels = plt.imread(image_path)
+        im_tensor, im_info, im_scale = ppc_retina(image, allow_upscaling=True)
+        return [im_tensor, im_info, im_scale], image
+            
+if __name__ == '__main__':
+    lol = preprocess_image('./aamir_4.jpg')
+    lol = infer_image(lol)
+    lol = postprocess_image(lol)
+    lol = preprocess_image_embed(lol)
+    lol = infer_image_embed(lol)
+    lol = postprocess_image_embed(lol)
+    print("Final Output: ", lol.shape)

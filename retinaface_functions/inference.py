@@ -15,7 +15,7 @@ model_path = 'retinanet.onnx'
 
 # The only function to be called from here is 'infer_image'
 
-def infer_image(im_tensor, threshold=0.9, allow_upscaling = True):
+def infer_image(out0, threshold=0.9, allow_upscaling = True):
     #print("\n***********************\n")
     #print("Starting inference on input image using ONNX Model")
     #print("Shape of input image: ", image.shape)
@@ -25,7 +25,8 @@ def infer_image(im_tensor, threshold=0.9, allow_upscaling = True):
     retina_output_name = []
     for i in range(len(retina_session.get_outputs())):
         retina_output_name.append(retina_session.get_outputs()[i].name)
-    
+    im_array, _ = out0
+    im_tensor, _, _ = im_array
     #print(retina_input_name)
     #print(retina_output_name)
     retina_data = json.dumps({'data': im_tensor.tolist()})
@@ -33,4 +34,4 @@ def infer_image(im_tensor, threshold=0.9, allow_upscaling = True):
     net_out = retina_session.run(retina_output_name, {retina_input_name: retina_data})
     print("Retina Network Result Length: ", len(net_out))
     
-    return net_out
+    return net_out, out0, threshold
