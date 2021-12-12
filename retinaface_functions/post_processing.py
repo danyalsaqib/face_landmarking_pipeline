@@ -269,7 +269,7 @@ def postprocess_image(out1):
                     print("Yaw Bound: ", yaw_bound)
                     if find_roll(points) > (-1 * roll_bound) and  find_roll(points) < roll_bound and find_yaw(points) > (-1 * yaw_bound) and  find_yaw(points) < yaw_bound and find_pitch(points) < 2.5 and find_pitch(points) > 0.5:
                         print("valid face")                    
-                        return crop_img, faces
+                        return crop_img, faces, x_start, y_start
                     else:
                         raise InvalidPose
                 else:
