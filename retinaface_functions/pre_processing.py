@@ -2,8 +2,8 @@ import cv2 as cv
 import numpy as np
 from os import path
 import os
-from inference import infer_image
-from post_processing import postprocess_image
+from inference import infer_image_landmark
+from post_processing import postprocess_image_landmark
 from embedding_functions.pre_processing import preprocess_image_embed
 from embedding_functions.inference import infer_image_embed
 from embedding_functions.post_processing import postprocess_image_embed
@@ -56,7 +56,7 @@ def ppc_retina(img, allow_upscaling):
     return im_tensor, img.shape[0:2], im_scale
 
 # This function currently takes an image_path, and returns cv2 object
-def preprocess_image(image_path):
+def preprocess_image_landmark(image_path):
     file_path = os.path.dirname(os.path.abspath(__file__)) + os.sep
     output_size=(224 , 224)
     default_square = True
@@ -75,9 +75,9 @@ def preprocess_image(image_path):
         return [im_tensor, im_info, im_scale], image
             
 if __name__ == '__main__':
-    lol = preprocess_image('./aamir_4.jpg')
-    lol = infer_image(lol)
-    lol = postprocess_image(lol)
+    lol = preprocess_image_landmark('./aamir_4.jpg')
+    lol = infer_image_landmark(lol)
+    lol = postprocess_image_landmark(lol)
     lol = preprocess_image_embed(lol)
     lol = infer_image_embed(lol)
     lol = postprocess_image_embed(lol)

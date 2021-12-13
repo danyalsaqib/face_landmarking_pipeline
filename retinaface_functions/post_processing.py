@@ -227,7 +227,7 @@ class NoFaceDetected(Error):
 class SmallFaceDetected(Error):
     pass
 
-def postprocess_image(out1):
+def postprocess_image_landmark(out1):
     net_out, out0, threshold = out1
     threshold = 0.5
     im_array, image = out0
