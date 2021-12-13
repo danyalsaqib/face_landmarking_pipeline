@@ -57,6 +57,8 @@ def ppc_retina(img, allow_upscaling):
 
 # This function currently takes an image_path, and returns cv2 object
 def preprocess_image_landmark(image_path):
+    print("\n*********************")
+    print("Preprocessing for Face Detection and Landmarking")
     file_path = os.path.dirname(os.path.abspath(__file__)) + os.sep
     output_size=(224 , 224)
     default_square = True

@@ -16,6 +16,8 @@ model_path = 'retinanet.onnx'
 # The only function to be called from here is 'infer_image'
 
 def infer_image_landmark(out0, threshold=0.9, allow_upscaling = True):
+    print("\n*********************")
+    print("Inference for Face Detection and Landmarking")
     #print("\n***********************\n")
     #print("Starting inference on input image using ONNX Model")
     #print("Shape of input image: ", image.shape)

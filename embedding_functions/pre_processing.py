@@ -33,6 +33,8 @@ def retinaface_landmarking(faces, x_start = 0, y_start = 0):
     return points
 
 def preprocess_image_embed(out2):
+    print("\n*********************")
+    print("Preprocessing for Face Recognition")
     crop_img, faces, x_start, y_start = out2
     points = retinaface_landmarking(faces, x_start, y_start)
     for i in range(len(points)):
@@ -51,8 +53,10 @@ def preprocess_image_embed(out2):
     #Recognition
     img = cv.resize(crop_img2, dsize=(112, 112), interpolation=cv.INTER_AREA)
     img.resize((1, 3, 112, 112))
-    img = img - 127.5
-    img = img / 128
+    #img = img - 127.5
+    #img = img / 128
+    img = img / 255
+    print("Passed Image Shape: ", img.shape)
     data = json.dumps({'data': img.tolist()})
     data = np.array(json.loads(data)['data']).astype('float32')
     return data

@@ -228,6 +228,8 @@ class SmallFaceDetected(Error):
     pass
 
 def postprocess_image_landmark(out1):
+    print("\n*********************")
+    print("Postprocessing for Face Detection and Landmarking")
     net_out, out0, threshold = out1
     threshold = 0.5
     im_array, image = out0
@@ -242,33 +244,34 @@ def postprocess_image_landmark(out1):
                 boundingBoxes = faces['face_1']['facial_area']
 
                 # Get start and end values of Bounding Boxes
-                print("Bounding Boxes Raw: ", boundingBoxes)
+                print("Bounding Boxes: ", boundingBoxes)
                 x_start, y_start, x_end, y_end = boundingBoxes
-                print("x_start: ", x_start)
-                print("x_end: ", x_end)
-                print("y_start: ", y_start)
-                print("y_end: ", y_end)
+                #print("x_start: ", x_start)
+                #print("x_end: ", x_end)
+                #print("y_start: ", y_start)
+                #print("y_end: ", y_end)
                 crop_img = image[y_start:y_end, x_start:x_end]
-                print("crop_img shape: ", crop_img.shape)
+                #print("crop_img shape: ", crop_img.shape)
                 #cv.imwrite('croppedImage.jpg', crop_img)
                 origin_h1, origin_w1 = crop_img.shape[:2]
-                print("About to print origin_h1 and origin_w1")
-                print(origin_h1, origin_w1)
+                #print("About to print origin_h1 and origin_w1")
+                #print(origin_h1, origin_w1)
                 print("Single Face Detected")
                 points = retinaface_landmarking(faces, x_start, y_start)
                 for i in range(len(points)):
                     points[i] = int(points[i])
-                print("Modified Landmarks: ", points)
+                #print("Modified Landmarks: ", points)
 
                 if origin_h1 > 80 and origin_w1 > 80:
-                    print("\n*************************\n")
-                    print("Roll, Yaw, and Pitch: (", find_roll(points), ", ", find_yaw(points), ", ", find_pitch(points), ")")
+                    #print("\n*************************\n")
+                    print("\nRoll, Yaw, and Pitch: (", find_roll(points), ", ", find_yaw(points), ", ", find_pitch(points), ")")
                     roll_bound = int(0.05 * origin_h1)
                     yaw_bound = int(0.17 * origin_w1)
                     print("Roll Bound: ", roll_bound)
                     print("Yaw Bound: ", yaw_bound)
                     if find_roll(points) > (-1 * roll_bound) and  find_roll(points) < roll_bound and find_yaw(points) > (-1 * yaw_bound) and  find_yaw(points) < yaw_bound and find_pitch(points) < 2.5 and find_pitch(points) > 0.5:
-                        print("valid face")                    
+                        print("valid face")   
+                        print("\nEnd of Face Detection and Landmarking Pipeline\n")                 
                         return crop_img, faces, x_start, y_start
                     else:
                         raise InvalidPose

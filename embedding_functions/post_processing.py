@@ -13,13 +13,17 @@ from os import path
 # Only function to be called is postprocess_image
 
 def postprocess_image_embed(result):
+    print("\n*********************")
+    print("Postprocessing for Face Recognition")
     #find_pose(points)
     #name = name.replace('_', ' ')
     diction = {'embeddings': result.astype(int).tolist()}
     #diction['names'].append(name)
     #diction['embeddings'].append(result[0].astype(int).tolist())
     #diction['embeddings']
+    print("Written to file")
     with open('dictionary.json', 'w') as handle:
         json.dump(diction, handle)
+    print("\nEnd of Face Recognition Pipeline\n")
     return result
 
