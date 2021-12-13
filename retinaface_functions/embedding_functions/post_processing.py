@@ -12,7 +12,7 @@ from os import path
 
 # Only function to be called is postprocess_image
 
-def postprocess_image_retina(result):
+def postprocess_image_embed(result):
     #find_pose(points)
     #name = name.replace('_', ' ')
     diction = {'embeddings': result.astype(int).tolist()}
