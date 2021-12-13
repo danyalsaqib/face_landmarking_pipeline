@@ -1,5 +1,6 @@
 import cv2 as cv
 import numpy as np
+import pandas as pd
 from os import path
 import os
 from inference import infer_image_landmark
@@ -12,6 +13,7 @@ from embedding_functions.post_processing import postprocess_image_embed
 
 def findCosineDistance(source_representation, test_representation):
     a = np.matmul(np.transpose(source_representation), test_representation)
+    print("a: ", a.shape)
     b = np.sum(np.multiply(source_representation, source_representation))
     c = np.sum(np.multiply(test_representation, test_representation))
     return 1 - (a / (np.sqrt(b) * np.sqrt(c)))
@@ -73,24 +75,33 @@ def preprocess_image_landmark(image_path):
     threshold = 0.5
     #diction = {'names':[], 'embeddings':[]}
     ## Detection with mtcnn
-    if path.exists(image_path) ==False:
+    if path.exists(image_path) == False:
+        print("Invalid File Path")
         return -1
     else:
         image = cv.imread(image_path)
+        print(str(type(image))[8:-2])
+        if (str(type(image))[8:-2] == 'NoneType'):
+            print("Invalid Image")
+            return -1
         print("image shape: ", image.shape)
         #pixels = plt.imread(image_path)
         im_tensor, im_info, im_scale = ppc_retina(image, allow_upscaling=True)
+        print("Image Tensor Shape: ", im_tensor.shape)
         return [im_tensor, im_info, im_scale], image
         
 def get_representation(file_path):
     lol = preprocess_image_landmark(file_path)
-    lol = infer_image_landmark(lol)
-    lol = postprocess_image_landmark(lol)
-    lol = preprocess_image_embed(lol)
-    lol = infer_image_embed(lol)
-    lol = postprocess_image_embed(lol)
-    print("Final Output: ", lol.shape)
+    if lol != -1:
+        lol = infer_image_landmark(lol)
+        lol = postprocess_image_landmark(lol)
+        if lol != -1:
+            lol = preprocess_image_embed(lol)
+            lol = infer_image_embed(lol)
+            lol = postprocess_image_embed(lol)
+            print("Final Output: ", lol.shape)
     return lol
                 
 if __name__ == '__main__':
-    im1 = get_representation('./aamir_4.jpg')
+    im = get_representation('images/Aamir Hussain Liaquat_img_1.jpg')
+    

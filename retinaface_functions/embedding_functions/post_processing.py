@@ -17,7 +17,8 @@ def postprocess_image_embed(result):
     print("Postprocessing for Face Recognition")
     #find_pose(points)
     #name = name.replace('_', ' ')
-    diction = {'embeddings': result.astype(int).tolist()}
+    result1 = np.transpose(result)
+    diction = {'embeddings': result1.astype(int).tolist()}
     #diction['names'].append(name)
     #diction['embeddings'].append(result[0].astype(int).tolist())
     #diction['embeddings']
@@ -25,5 +26,5 @@ def postprocess_image_embed(result):
     with open('dictionary.json', 'w') as handle:
         json.dump(diction, handle)
     print("\nEnd of Face Recognition Pipeline\n")
-    return result
+    return result1
 

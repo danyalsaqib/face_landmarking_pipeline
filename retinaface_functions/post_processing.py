@@ -235,6 +235,8 @@ def postprocess_image_landmark(out1):
     im_array, image = out0
     faces = get_output(net_out, im_array, threshold)
     check_multi_detection = len(faces)
+    if check_multi_detection > 1:
+        return -1
     confidence = faces['face_1']['score']
     try:
         if confidence > threshold:
@@ -285,12 +287,17 @@ def postprocess_image_landmark(out1):
 
                 
     except PathNotFound:
+        return -1
         print("Check input path")
     except MultipleFaceDetected:
+        return -1
         print("Multiple face detected")
     except NoFaceDetected:
+        return -1
         print("No face Detected")
     except SmallFaceDetected:
+        return -1
         print("Detected face is smaller than requiured for embedding")
     except InvalidPose:
-            print("Pose is not valid")
+        return -1
+        print("Pose is not valid")
