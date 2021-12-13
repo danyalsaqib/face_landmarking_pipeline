@@ -10,6 +10,12 @@ from embedding_functions.post_processing import postprocess_image_embed
 
 # Only function to be called is preprocess_image
 
+def findCosineDistance(source_representation, test_representation):
+    a = np.matmul(np.transpose(source_representation), test_representation)
+    b = np.sum(np.multiply(source_representation, source_representation))
+    c = np.sum(np.multiply(test_representation, test_representation))
+    return 1 - (a / (np.sqrt(b) * np.sqrt(c)))
+
 def resize_image(img, scales, allow_upscaling):
     img_h, img_w = img.shape[0:2]
     target_size = scales[0]
@@ -75,12 +81,16 @@ def preprocess_image_landmark(image_path):
         #pixels = plt.imread(image_path)
         im_tensor, im_info, im_scale = ppc_retina(image, allow_upscaling=True)
         return [im_tensor, im_info, im_scale], image
-            
-if __name__ == '__main__':
-    lol = preprocess_image_landmark('./aamir_4.jpg')
+        
+def get_representation(file_path):
+    lol = preprocess_image_landmark(file_path)
     lol = infer_image_landmark(lol)
     lol = postprocess_image_landmark(lol)
     lol = preprocess_image_embed(lol)
     lol = infer_image_embed(lol)
     lol = postprocess_image_embed(lol)
     print("Final Output: ", lol.shape)
+    return lol
+                
+if __name__ == '__main__':
+    im1 = get_representation('./aamir_4.jpg')
