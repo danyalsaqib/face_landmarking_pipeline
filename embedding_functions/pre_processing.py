@@ -9,8 +9,8 @@ import tensorflow as tf
 from retinaface.commons import preprocess, postprocess
 import json
 from os import path
-from helper_functions import warp_and_crop_face, get_reference_facial_points
-#from embedding_functions.helper_functions import warp_and_crop_face, get_reference_facial_points
+#from helper_functions import warp_and_crop_face, get_reference_facial_points
+from embedding_functions.helper_functions import warp_and_crop_face, get_reference_facial_points
 
 # Only function to be called is preprocess_image
 
@@ -51,6 +51,8 @@ def preprocess_image_embed(out2):
     #Recognition
     img = cv.resize(crop_img2, dsize=(112, 112), interpolation=cv.INTER_AREA)
     img.resize((1, 3, 112, 112))
+    img = img - 127.5
+    img = img / 128
     data = json.dumps({'data': img.tolist()})
     data = np.array(json.loads(data)['data']).astype('float32')
     return data
