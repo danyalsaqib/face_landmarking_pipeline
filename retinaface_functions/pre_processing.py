@@ -103,5 +103,5 @@ def get_representation(file_path):
     return lol
                 
 if __name__ == '__main__':
-    im = get_representation('images/Aamir Hussain Liaquat_img_1.jpg')
+    im = get_representation('test/Aamir Hussain Liaquat_img_1.jpg')
     
