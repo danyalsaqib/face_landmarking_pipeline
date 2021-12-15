@@ -1,4 +1,5 @@
 import cv2 as cv
+import argparse
 import numpy as np
 import pandas as pd
 from os import path
@@ -103,5 +104,8 @@ def get_representation(file_path):
     return lol
                 
 if __name__ == '__main__':
-    im = get_representation('test/Aamir Hussain Liaquat_img_1.jpg')
-    
+    parser = argparse.ArgumentParser(description='Get Embedding Representation for some Image')
+    parser.add_argument('--path', metavar='Path', action='store', type=str, help='The Path to desired Image')
+
+    args = parser.parse_args()
+    im = get_representation(args.path)
