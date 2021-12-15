@@ -12,6 +12,6 @@ RUN apt-get update && \
     pip install numpy protobuf==3.16.0 && \
     pip install onnx && \
     pip install onnxruntime && \
-    pip install -U tf2onn
+    pip install -U tf2onnx
 
 COPY retinaface_functions /usr/local/retinaface_functions
