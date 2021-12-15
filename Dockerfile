@@ -2,8 +2,6 @@ FROM nvcr.io/nvidia/tensorflow:21.11-tf2-py3
 
 RUN apt-get update && \
     apt-get install ffmpeg libsm6 libxext6  -y && \
-    apt install git-all && \
-    pip install gdown && \
     pip install opencv-python && \
     pip install matplotlib && \
     python -m pip install -U scikit-image && \
@@ -11,6 +9,6 @@ RUN apt-get update && \
     pip install mtcnn && \
     pip install numpy protobuf==3.16.0 && \
     pip install onnx && \
-    pip install onnxruntime
+    pip install onnxruntime -y
 
 COPY retinaface_functions /usr/local/retinaface_functions
