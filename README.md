@@ -14,17 +14,27 @@ FROM nvcr.io/nvidia/tensorflow:21.11-tf2-py3
 ```
 To build the docker, simply use the following command:
 ```
-docker build -t face_pipeline:retina_1 .
+sudo docker build -t face_pipeline:retina_1 .
 ```
 To run the docker after successfully building it, use the following command:
 ```
-docker run face_pipeline:retina_1
+sudo docker run --gpus all -it --rm face_pipeline:retinaface_1
 ```
 
 ## Running the complete pipeline
+After running the docker, change into the following directory:
+```
+cd /usr/local/retinaface_functions
+````
+
 The 'retinaface_functions/pre_processing.py' file has a main functon, that can run the entire pipeline with 1 call. Its usage is as follows:
 ```
 python3 pre_processing.py --path 'path/to/image_file.jpg'
+```
+
+As an example, you can run the following code on the available test images:
+```
+python3 pre_processing.py --path 'test/Aamir Hussain Liaquat_img_1.jpg'
 ```
 
 ## Individual Functions
