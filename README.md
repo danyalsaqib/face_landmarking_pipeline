@@ -3,7 +3,15 @@ The link to ONNX models used can be found at: https://drive.google.com/drive/fol
 
 These models should be placed in 'face_landmarking_pipeline/retinaface_functions/'. The preprocessing file 'face_landmarking_pipeline/retinaface_functions/pre_processing.py' contains a main function that can be used to run the entire pipeline.
 
-## RetinaFace Functions
+## Running the complete pipeline
+The 'retinaface_functions/pre_processing.py' file has a main functon, that can run the entire pipeline with 1 call. Its usage is as follows:
+```
+python3 pre_processing.py --path 'path/to/image_file.jpg'
+```
+
+## Individual Functions
+
+### RetinaFace Functions
 1. pre_processing.py:
 
 Preprocesses image, and outputs an image tensor. Only call 'preprocess_image' function
@@ -16,7 +24,7 @@ Performs inference on image tensor, and outputs RetinaFace output. Only call 'in
 
 Postprocesses RetinaFace output, and outputs cropped image and 'relative landmarks'. Only call 'postprocess_image' function
 
-## Embedding Functions
+### Embedding Functions
 Should be given output of postprocessing of RetinaFace
 1. pre_processing.py:
 
