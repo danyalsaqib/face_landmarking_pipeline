@@ -4,14 +4,8 @@ The link to ONNX models used can be found at: https://drive.google.com/drive/fol
 These models should be placed in 'face_landmarking_pipeline/retinaface_functions/'. The preprocessing file 'face_landmarking_pipeline/retinaface_functions/pre_processing.py' contains a main function that can be used to run the entire pipeline.
 
 ## Dockerfile
-The dockerfile contains instructions to first install necessary libraries, and then copy the 'retinaface_functions/' directory into a local docker directory:
-```
-COPY retinaface_functions /usr/local/retinaface_functions
-```
-The docker uses the tensorflow container as its parent:
-```
-FROM nvcr.io/nvidia/tensorflow:21.11-tf2-py3
-```
+The dockerfile contains instructions to first install necessary libraries, and then copy the 'retinaface_functions/' directory into a local docker directory using the command `COPY retinaface_functions /usr/local/retinaface_functions` The docker uses the tensorflow container as its parent, given by `FROM nvcr.io/nvidia/tensorflow:21.11-tf2-py3`
+
 To build the docker, simply use the following command:
 ```
 sudo docker build -t face_pipeline:retina_1 .
